@@ -1,0 +1,206 @@
+@import "../../styleUtils/mixins.scss";
+
+.header {
+  background-color: #FAFBFC;
+  padding: 24px;
+
+  @include onLargeMobile {
+    padding: 24px 36px;
+  }
+
+  @include onTablet {
+    padding: 36px 42px;
+  }
+
+  &__navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__burger {
+    display: flex;
+    background: none;
+    cursor: pointer;
+
+    &--icon {
+      display: block;
+      background-image: url(../../assets/menu-icon.svg);
+      background-repeat: no-repeat;
+      background-size: 24px;
+      background-position: center;
+      width: 24px;
+      height: 24px;
+    }
+
+    @include onDesktop {
+      display: none;
+    }
+  }
+
+  &__search {
+    display: flex;
+    background: none;
+    cursor: pointer;
+
+    transition-duration: 0.3s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &--icon {
+      display: block;
+      background-image: url(../../assets/search-icon.svg);
+      background-repeat: no-repeat;
+      background-size: 24px;
+      background-position: center;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  &__mobile {
+    display: flex;
+
+    @include onDesktop {
+      display: none;
+    }
+  }
+
+
+  .mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    z-index: 9999;
+    background-color: #FAFBFC;
+
+    transform: translateX(100%);
+    transition: ease-out 0.3s;
+
+    &__menu {
+      display: flex;
+    }
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px;
+
+      @include onLargeMobile {
+        padding: 24px 36px;
+      }
+
+      @include onTablet {
+        padding: 36px 42px;
+      }
+    }
+
+    &__item {
+      display: flex;
+      flex-direction: column;
+      gap: 45px;
+      margin-bottom: 90px;
+
+    }
+
+    &__link {
+      font-size: 24px;
+      color: #313237;
+      font-weight: 700;
+      transition-duration: 0.3s;
+
+      &:hover {
+        color: #89939A;
+      }
+    }
+
+    &__socialsList {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    &__follow {
+      font-weight: 600;
+      margin-bottom: 24px;
+      color: #313237;
+    }
+
+    &__socials {
+      &--icon {
+        display: block;
+        background-repeat: no-repeat;
+        width: 50px;
+        height: 50px;
+        background-size: 50px;
+
+        transition-duration: 0.3s;
+
+        &:hover {
+          transform: scale(1.05);
+        }
+
+        &--facebook {
+          background-image: url(../../assets/facebook-icon.svg);
+        }
+
+        &--instagram {
+          background-image: url(../../assets/inst-icon.svg);
+        }
+
+        &--twitter {
+          background-image: url(../../assets/twitter-icon.svg);
+        }
+      }
+    }
+
+    &.show {
+      transform: translateX(0);
+
+      .mobile__menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+
+        font-size: 18px;
+      }
+
+      .mobile__burger {
+        background: none;
+        border: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+
+        transition-duration: 0.3s;
+
+        &--icon {
+          background-image: url(../../assets/cross-icon.svg);
+          background-repeat: no-repeat;
+          background-size: 24px;
+          background-position: center;
+          width: 24px;
+          height: 24px;
+        }
+
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}

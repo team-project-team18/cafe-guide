@@ -1,0 +1,114 @@
+import React, { useEffect, useState } from "react";
+import { NavLink, Link } from 'react-router-dom'
+import cn from 'classnames';
+import { Logo } from "../Logo/Logo";
+import './Header.scss';
+
+export const Header: React.FC = () => {
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu((prevShowMenu) => !prevShowMenu);
+  };
+
+  const handleLinkClick = () => {
+    setShowMenu(false);
+  };
+
+  useEffect(() => {
+    if (showMenu) {
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.documentElement.style.overflow = 'auto';
+    };
+  }, [showMenu]);
+
+  return (
+    <header className="header">
+      <nav className="header__navbar">
+        <button
+          className="header__burger"
+          type="button"
+          onClick={toggleMenu}
+        >
+          <div className="header__burger--icon" />
+        </button>
+        <div className={cn('header__mobile mobile', {
+          show: showMenu,
+          'show-menu': showMenu,
+        })}>
+          <div className="mobile__header">
+            <Logo />
+
+            <button
+              type="button"
+              className="mobile__burger"
+              onClick={toggleMenu}
+            >
+              <div className="mobile__burger--icon" />
+            </button>
+          </div>
+
+          <ul className="mobile__menu">
+            <li className="mobile__item">
+              <NavLink
+                to="/cafe-guide"
+                className="mobile__link"
+                onClick={handleLinkClick}
+              >
+                Home
+              </NavLink>
+              <NavLink
+                to="/cafe-guide/catalog"
+                className="mobile__link"
+                onClick={handleLinkClick}
+              >
+                Catalog
+              </NavLink>
+              <NavLink
+                to="/cafe-guide/news"
+                className="mobile__link"
+                onClick={handleLinkClick}
+              >
+                News
+              </NavLink>
+            </li>
+            <li className="mobile__follow">Follow us:</li>
+            <li className="mobile__socialsList">
+              
+              <Link
+                to="https://facebook.com/"
+                className="mobile__socials"
+              >
+                <div className="mobile__socials--icon mobile__socials--icon--facebook" />
+              </Link>
+              <Link
+                to="https://www.instagram.com/"
+                className="mobile__socials"
+              >
+                <div className="mobile__socials--icon mobile__socials--icon--instagram" />
+              </Link>
+              <Link
+                to="https://twitter.com/"
+                className="mobile__socials"
+              >
+                <div className="mobile__socials--icon mobile__socials--icon--twitter" />
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <Logo />
+        <button
+          className="header__search"
+          type="button"
+        >
+          <div className="header__search--icon" />
+        </button>
+      </nav>
+    </header>
+  );
+};
