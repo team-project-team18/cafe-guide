@@ -79,7 +79,7 @@ export const Header: React.FC = () => {
             </li>
             <li className="mobile__follow">Follow us:</li>
             <li className="mobile__socialsList">
-              
+
               <Link
                 to="https://facebook.com/"
                 className="mobile__socials"
@@ -102,6 +102,43 @@ export const Header: React.FC = () => {
           </ul>
         </div>
         <Logo />
+
+        <ul className="header__desktop">
+          <li className="header__container">
+            <NavLink
+              to="/cafe-guide/"
+              className={({ isActive }) => cn(
+                'header__ref',
+                { 'header__ref--active': isActive },
+              )}
+            >
+              Home
+            </NavLink>
+          </li>
+          <li className="header__container">
+            <NavLink
+              to="/cafe-guide/catalog"
+              className={({ isActive }) => cn(
+                'header__ref',
+                { 'header__ref--active': isActive },
+              )}
+            >
+              Catalog
+            </NavLink>
+          </li>
+          <li className="header__container">
+            <NavLink
+              to="/cafe-guide/news"
+              className={({ isActive }) => cn(
+                'header__ref',
+                { 'header__ref--active': isActive },
+              )}
+            >
+              News
+            </NavLink>
+          </li>
+        </ul>
+
         <button
           className="header__search"
           type="button"
