@@ -3,12 +3,19 @@ import { NavLink, Link } from 'react-router-dom'
 import cn from 'classnames';
 import { Logo } from "../Logo/Logo";
 import './Header.scss';
+import { Search } from "../Search/Search";
 
 export const Header: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+
+  const toggleSearch = () => {
+    setShowSearch((prevSearch) => !prevSearch);
+  };
 
   const toggleMenu = () => {
     setShowMenu((prevShowMenu) => !prevShowMenu);
+    setShowSearch(false);
   };
 
   const handleLinkClick = () => {
@@ -29,7 +36,7 @@ export const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <nav className="header__navbar">
+      <nav className={cn('header__navbar', { 'header__navbar--hidden': showSearch })}>
         <button
           className="header__burger"
           type="button"
@@ -142,10 +149,29 @@ export const Header: React.FC = () => {
         <button
           className="header__search"
           type="button"
+          onClick={toggleSearch}
         >
           <div className="header__search--icon" />
         </button>
+        <div className="header__search--desktop"><Search /></div>
       </nav>
+
+      {showSearch && (
+        <div
+          className={cn('header__search-container', { 'show-search': showSearch })}
+        >
+          <div className="header__search-container--search">
+            <button
+              className="header__search-container--button"
+              type="button"
+              onClick={toggleSearch}
+            >
+              <div className="header__search-container--icon" />
+            </button>
+            <Search />
+          </div>
+        </div>
+      )}
     </header>
   );
 };

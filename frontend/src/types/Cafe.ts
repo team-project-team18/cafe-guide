@@ -1,5 +1,8 @@
 export interface Cafe {
   name: string,
   street: string,
-  image: string,
+  images: string,
+  description: string,
+  id: number,
+  address: string,
 }
