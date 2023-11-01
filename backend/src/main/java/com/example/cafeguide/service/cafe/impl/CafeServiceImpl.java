@@ -38,12 +38,22 @@ public class CafeServiceImpl implements CafeService {
     }
 
     @Override
+    public CafeDto getByName(String name) {
+        String nameWithoutLines = name.replaceAll("_", " ");
+        Cafe cafeByName = cafeRepository.findByName(nameWithoutLines).orElseThrow(
+                () -> new RuntimeException("Could not find cafe by name: " + name)
+        );
+        return cafeMapper.toDto(cafeByName);
+    }
+
+    @Override
     public List<CafeDto> getAll() {
         return cafeRepository.findAll().stream()
                 .map(cafeMapper::toDto)
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public CafeDto updateById(Long id, CafeRequestDto requestDto) {
         Cafe cafeById = cafeRepository.findById(id).orElseThrow(

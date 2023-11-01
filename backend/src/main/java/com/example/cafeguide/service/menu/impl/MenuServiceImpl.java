@@ -14,6 +14,7 @@ import com.example.cafeguide.service.menu.MenuService;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +24,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuMapper menuMapper;
     private final MenuItemMapper menuItemMapper;
 
+    @Transactional
     @Override
     public MenuDto addMenuItem(Long menuId, MenuItemRequestDto requestDto) {
         Menu menu = getMenuById(menuId);
@@ -39,6 +41,7 @@ public class MenuServiceImpl implements MenuService {
         return menuMapper.toDto(getMenuById(id));
     }
 
+    @Transactional
     @Override
     public MenuItemDto updateMenuItem(Long menuItemId, MenuItemRequestDto requestDto) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElseThrow(

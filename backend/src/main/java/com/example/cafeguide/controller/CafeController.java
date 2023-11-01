@@ -34,10 +34,10 @@ public class CafeController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
-    @Operation(summary = "Get a cafe", description = "Get a cafe by id")
-    public CafeDto getCafeById(@PathVariable Long id) {
-        return cafeService.getById(id);
+    @GetMapping("/{name}")
+    @Operation(summary = "Get a cafe", description = "Get a cafe by name")
+    public CafeDto getCafeByName(@PathVariable String name) {
+        return cafeService.getByName(name);
     }
 
     @ResponseStatus(HttpStatus.OK)

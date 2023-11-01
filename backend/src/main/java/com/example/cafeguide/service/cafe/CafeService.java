@@ -9,6 +9,8 @@ public interface CafeService {
 
     CafeDto getById(Long id);
 
+    CafeDto getByName(String name);
+
     List<CafeDto> getAll();
 
     CafeDto updateById(Long id, CafeRequestDto requestDto);
