@@ -3,3 +3,7 @@ databaseChangeLog:
       file : db/changelog/changes/01-create-cafes-table.yaml
   - include:
       file : db/changelog/changes/02-create-cafes-images-table.yaml
+  - include:
+      file : db/changelog/changes/03-create-menu-table.yaml
+  - include:
+      file : db/changelog/changes/04-create-menu-items-table.yaml

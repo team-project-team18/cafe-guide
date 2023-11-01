@@ -1,4 +1,4 @@
-package com.example.cafeguide.service;
+package com.example.cafeguide.service.cafe;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;

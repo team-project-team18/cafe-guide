@@ -2,7 +2,7 @@ package com.example.cafeguide.controller;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
-import com.example.cafeguide.service.CafeService;
+import com.example.cafeguide.service.cafe.CafeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

@@ -1,26 +1,31 @@
-package com.example.cafeguide.service.impl;
+package com.example.cafeguide.service.cafe.impl;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
 import com.example.cafeguide.mapper.CafeMapper;
 import com.example.cafeguide.model.Cafe;
 import com.example.cafeguide.repository.CafeRepository;
-import com.example.cafeguide.service.CafeService;
+import com.example.cafeguide.service.cafe.CafeService;
+import com.example.cafeguide.service.menu.MenuService;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class CafeServiceImpl implements CafeService {
+    private final MenuService menuService;
     private final CafeRepository cafeRepository;
     private final CafeMapper cafeMapper;
 
+    @Transactional
     @Override
     public CafeDto save(CafeRequestDto requestDto) {
         Cafe cafe = cafeMapper.toEntity(requestDto);
         Cafe savedCafe = cafeRepository.save(cafe);
+        menuService.registerMenu(savedCafe);
         return cafeMapper.toDto(savedCafe);
     }
 
