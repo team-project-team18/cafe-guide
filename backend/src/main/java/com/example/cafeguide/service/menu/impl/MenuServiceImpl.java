@@ -8,11 +8,13 @@ import com.example.cafeguide.mapper.MenuMapper;
 import com.example.cafeguide.model.Cafe;
 import com.example.cafeguide.model.Menu;
 import com.example.cafeguide.model.MenuItem;
-import com.example.cafeguide.repository.MenuItemRepository;
-import com.example.cafeguide.repository.MenuRepository;
+import com.example.cafeguide.repository.menu.MenuRepository;
+import com.example.cafeguide.repository.menuitem.MenuItemRepository;
 import com.example.cafeguide.service.menu.MenuService;
+import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -72,5 +74,12 @@ public class MenuServiceImpl implements MenuService {
         return menuRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("Could not find menu by id: " + id)
         );
+    }
+
+    @Override
+    public List<MenuDto> search(Specification<MenuItem> specification) {
+        return menuRepository.findAll(specification).stream()
+                .map(menuMapper::toDto)
+                .toList();
     }
 }

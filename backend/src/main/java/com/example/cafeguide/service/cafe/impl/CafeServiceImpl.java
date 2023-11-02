@@ -2,14 +2,23 @@ package com.example.cafeguide.service.cafe.impl;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
+import com.example.cafeguide.dto.cafe.CafeSearchParametersDto;
+import com.example.cafeguide.dto.menu.MenuDto;
 import com.example.cafeguide.mapper.CafeMapper;
 import com.example.cafeguide.model.Cafe;
-import com.example.cafeguide.repository.CafeRepository;
+import com.example.cafeguide.model.MenuItem;
+import com.example.cafeguide.repository.cafe.CafeRepository;
+import com.example.cafeguide.repository.cafe.CafeSpecificationBuilder;
+import com.example.cafeguide.repository.menuitem.MenuItemSpecificationBuilder;
 import com.example.cafeguide.service.cafe.CafeService;
 import com.example.cafeguide.service.menu.MenuService;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +28,8 @@ public class CafeServiceImpl implements CafeService {
     private final MenuService menuService;
     private final CafeRepository cafeRepository;
     private final CafeMapper cafeMapper;
+    private final CafeSpecificationBuilder cafeSpecificationBuilder;
+    private final MenuItemSpecificationBuilder menuItemSpecificationBuilder;
 
     @Transactional
     @Override
@@ -68,5 +79,36 @@ public class CafeServiceImpl implements CafeService {
     @Override
     public void deleteById(Long id) {
         cafeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<CafeDto> search(CafeSearchParametersDto searchParametersDto) {
+        Specification<Cafe> cafeSpecification
+                = cafeSpecificationBuilder.build(searchParametersDto);
+        Specification<MenuItem> menuItemSpecification
+                = menuItemSpecificationBuilder.build(searchParametersDto);
+        List<MenuDto> searchedMenuDtoList = menuService.search(menuItemSpecification);
+        List<Long> ids = searchedMenuDtoList.stream()
+                .map(MenuDto::getCafeId)
+                .collect(Collectors.toList());
+        List<CafeDto> searchedCafeDtoList = cafeRepository.findAll(cafeSpecification)
+                .stream()
+                .map(cafeMapper::toDto)
+                .toList();
+        List<CafeDto> searchedCafeDtoListWithMenuItems = cafeRepository.findAllByIdIsIn(ids)
+                .stream()
+                .map(cafeMapper::toDto)
+                .toList();
+        List<CafeDto> cafeDtoList = new ArrayList<>();
+        cafeDtoList.addAll(searchedCafeDtoList);
+        cafeDtoList.addAll(searchedCafeDtoListWithMenuItems);
+        Set<CafeDto> uniqueSet = new HashSet<>();
+        List<CafeDto> result = new ArrayList<>();
+        for (CafeDto cafeDto : cafeDtoList) {
+            if (!uniqueSet.add(cafeDto)) {
+                result.add(cafeDto);
+            }
+        }
+        return result;
     }
 }

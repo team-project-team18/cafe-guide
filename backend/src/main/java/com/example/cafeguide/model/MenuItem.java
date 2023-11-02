@@ -29,7 +29,7 @@ public class MenuItem {
     @Column(nullable = false)
     private BigDecimal price;
     @ManyToOne
-    @JoinColumn(name = "menu_item_id", nullable = false)
+    @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;

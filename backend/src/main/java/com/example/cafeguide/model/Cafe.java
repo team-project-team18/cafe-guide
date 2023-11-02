@@ -35,6 +35,10 @@ public class Cafe {
     private double distanceFromCentre;
     @Column(nullable = false)
     private String url;
+    @Column(name = "has_coworking", nullable = false)
+    private Boolean hasCoworking;
+    @Column(nullable = false)
+    private String district;
     @ElementCollection
     @CollectionTable(name = "cafes_images", joinColumns = @JoinColumn(name = "cafe_id"))
     @Column(name = "image")

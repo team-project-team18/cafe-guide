@@ -2,6 +2,7 @@ package com.example.cafeguide.controller;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
+import com.example.cafeguide.dto.cafe.CafeSearchParametersDto;
 import com.example.cafeguide.service.cafe.CafeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -60,5 +61,13 @@ public class CafeController {
     @Operation(summary = "Delete a cafe", description = "Delete a cafe by id")
     public void deleteById(@PathVariable Long id) {
         cafeService.deleteById(id);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/search")
+    @Operation(summary = "Search cafes by parameters",
+            description = "Get a list of cafes by the entered parameters")
+    public List<CafeDto> search(CafeSearchParametersDto searchParameters) {
+        return cafeService.search(searchParameters);
     }
 }

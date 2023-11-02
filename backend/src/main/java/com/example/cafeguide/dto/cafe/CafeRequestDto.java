@@ -18,5 +18,8 @@ public class CafeRequestDto {
     private double distanceFromCentre;
     @NotNull
     private String url;
+    private Boolean hasCoworking;
+    @NotNull
+    private String district;
     private Set<String> images;
 }

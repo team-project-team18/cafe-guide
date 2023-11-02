@@ -2,6 +2,7 @@ package com.example.cafeguide.service.cafe;
 
 import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
+import com.example.cafeguide.dto.cafe.CafeSearchParametersDto;
 import java.util.List;
 
 public interface CafeService {
@@ -16,4 +17,6 @@ public interface CafeService {
     CafeDto updateById(Long id, CafeRequestDto requestDto);
 
     void deleteById(Long id);
+
+    List<CafeDto> search(CafeSearchParametersDto searchParametersDto);
 }

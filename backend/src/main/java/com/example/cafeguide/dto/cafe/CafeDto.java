@@ -11,5 +11,7 @@ public class CafeDto {
     private String address;
     private double distanceFromCentre;
     private String url;
+    private Boolean hasCoworking;
+    private String district;
     private Set<String> images;
 }

@@ -1,4 +1,4 @@
-package com.example.cafeguide.repository;
+package com.example.cafeguide.repository.menuitem;
 
 import com.example.cafeguide.model.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
