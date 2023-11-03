@@ -7,6 +7,7 @@ import lombok.Data;
 public class CafeDto {
     private Long id;
     private String name;
+    private String cafeId;
     private String description;
     private String address;
     private double distanceFromCentre;

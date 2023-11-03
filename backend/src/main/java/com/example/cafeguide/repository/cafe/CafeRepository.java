@@ -14,7 +14,7 @@ public interface CafeRepository extends JpaRepository<Cafe, Long> {
     Optional<Cafe> findById(Long id);
 
     @EntityGraph(attributePaths = "images")
-    Optional<Cafe> findByName(String name);
+    Optional<Cafe> findByCafeId(String cafeId);
 
     @EntityGraph(attributePaths = "images")
     List<Cafe> findAllByIdIsIn(List<Long> ids);

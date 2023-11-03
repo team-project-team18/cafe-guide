@@ -10,7 +10,7 @@ public interface CafeService {
 
     CafeDto getById(Long id);
 
-    CafeDto getByName(String name);
+    CafeDto getByCafeId(String name);
 
     List<CafeDto> getAll();
 

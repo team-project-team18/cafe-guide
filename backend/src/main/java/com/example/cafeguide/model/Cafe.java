@@ -27,6 +27,8 @@ public class Cafe {
     private Long id;
     @Column(nullable = false)
     private String name;
+    @Column(name = "cafe_id", nullable = false)
+    private String cafeId;
     @Column(nullable = false)
     private String description;
     @Column(nullable = false)

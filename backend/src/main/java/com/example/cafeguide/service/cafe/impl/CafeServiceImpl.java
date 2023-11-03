@@ -50,10 +50,9 @@ public class CafeServiceImpl implements CafeService {
     }
 
     @Override
-    public CafeDto getByName(String name) {
-        String nameWithoutLines = name.replaceAll("_", " ");
-        Cafe cafeByName = cafeRepository.findByName(nameWithoutLines).orElseThrow(
-                () -> new EntityNotFoundException("Could not find cafe by name: " + name)
+    public CafeDto getByCafeId(String cafeId) {
+        Cafe cafeByName = cafeRepository.findByCafeId(cafeId).orElseThrow(
+                () -> new EntityNotFoundException("Could not find cafe by cafeId: " + cafeId)
         );
         return cafeMapper.toDto(cafeByName);
     }

@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-column-to-cafes-table
+      author: irynamatveieva
+      changes:
+        - addColumn:
+            tableName: cafes
+            columns:
+              - column:
+                  name: cafe_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
