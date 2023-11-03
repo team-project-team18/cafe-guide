@@ -3,6 +3,7 @@ package com.example.cafeguide.service.menu.impl;
 import com.example.cafeguide.dto.menu.MenuDto;
 import com.example.cafeguide.dto.menuitem.MenuItemDto;
 import com.example.cafeguide.dto.menuitem.MenuItemRequestDto;
+import com.example.cafeguide.exception.EntityNotFoundException;
 import com.example.cafeguide.mapper.MenuItemMapper;
 import com.example.cafeguide.mapper.MenuMapper;
 import com.example.cafeguide.model.Cafe;
@@ -47,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuItemDto updateMenuItem(Long menuItemId, MenuItemRequestDto requestDto) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElseThrow(
-                () -> new RuntimeException("Could not find menu item by id: " + menuItemId)
+                () -> new EntityNotFoundException("Could not find menu item by id: " + menuItemId)
         );
         menuItem.setName(requestDto.getName());
         menuItem.setPrice(requestDto.getPrice());
@@ -58,7 +59,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public void removeMenuItem(Long menuItemId) {
         MenuItem menuItem = menuItemRepository.findById(menuItemId).orElseThrow(
-                () -> new RuntimeException("Could not find menu item by id: " + menuItemId)
+                () -> new EntityNotFoundException("Could not find menu item by id: " + menuItemId)
         );
         menuItemRepository.delete(menuItem);
     }
@@ -72,7 +73,7 @@ public class MenuServiceImpl implements MenuService {
 
     private Menu getMenuById(Long id) {
         return menuRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Could not find menu by id: " + id)
+                () -> new EntityNotFoundException("Could not find menu by id: " + id)
         );
     }
 

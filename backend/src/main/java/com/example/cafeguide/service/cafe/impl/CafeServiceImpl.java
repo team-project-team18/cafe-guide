@@ -4,6 +4,7 @@ import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.cafe.CafeRequestDto;
 import com.example.cafeguide.dto.cafe.CafeSearchParametersDto;
 import com.example.cafeguide.dto.menu.MenuDto;
+import com.example.cafeguide.exception.EntityNotFoundException;
 import com.example.cafeguide.mapper.CafeMapper;
 import com.example.cafeguide.model.Cafe;
 import com.example.cafeguide.model.MenuItem;
@@ -43,7 +44,7 @@ public class CafeServiceImpl implements CafeService {
     @Override
     public CafeDto getById(Long id) {
         Cafe cafeById = cafeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Could not find cafe by id: " + id)
+                () -> new EntityNotFoundException("Could not find cafe by id: " + id)
         );
         return cafeMapper.toDto(cafeById);
     }
@@ -52,7 +53,7 @@ public class CafeServiceImpl implements CafeService {
     public CafeDto getByName(String name) {
         String nameWithoutLines = name.replaceAll("_", " ");
         Cafe cafeByName = cafeRepository.findByName(nameWithoutLines).orElseThrow(
-                () -> new RuntimeException("Could not find cafe by name: " + name)
+                () -> new EntityNotFoundException("Could not find cafe by name: " + name)
         );
         return cafeMapper.toDto(cafeByName);
     }
@@ -68,7 +69,7 @@ public class CafeServiceImpl implements CafeService {
     @Override
     public CafeDto updateById(Long id, CafeRequestDto requestDto) {
         Cafe cafeById = cafeRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Could not find cafe by id: " + id)
+                () -> new EntityNotFoundException("Could not find cafe by id: " + id)
         );
         Cafe cafe = cafeMapper.toEntity(requestDto);
         cafe.setId(id);
