@@ -1,3 +1,5 @@
+@import "./styleUtils/mixins.scss";
+
 iframe {
   display: none;
 }
@@ -42,5 +44,13 @@ li {
 }
 
 .main {
-  margin-block: 500px;
+  margin: 80px 20px;
+
+  @include onTablet {
+    margin: 100px 60px;
+  }
+
+  @include onDesktop {
+    margin: 120px 80px;
+  }
 }

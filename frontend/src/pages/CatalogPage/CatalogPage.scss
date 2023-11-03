@@ -1,0 +1,113 @@
+@import "../../styleUtils/mixins.scss";
+
+.catalog {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  overflow-y: auto;
+
+  
+  &__top {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    gap: 46px;
+
+    position: relative;
+
+    &.filter-menu-open {
+      + .filter-menu {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &__filter {
+    display: flex;
+    gap: 80px;
+    align-items: center;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    gap: 16px;
+  }
+
+  .filter-menu {
+    position: fixed;
+    top: 112px;
+    right: 0;
+    height: 100vh;
+    width: 50vw;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    padding: 40px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+
+    &.filter-menu-open {
+      transform: translateX(0);
+    }
+
+    @include onTablet {
+      top: 136px;
+      width: 30vw;
+    }
+
+    @include onDesktop {
+      top: 145px;
+    }
+
+    &__header {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+
+      margin-bottom: 36px;
+    }
+
+    &__button {
+      background-color: #fff;
+    }
+
+    &__icon {
+      display: block;
+      background-image: url(../../assets/cross-icon.svg);
+      background-repeat: no-repeat;
+      background-size: 24px;
+      background-position: center;
+      width: 24px;
+      height: 24px;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    &__reset {
+      cursor: pointer;
+      padding: 14px;
+      background-color: #000;
+      color: #fff;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 16px;
+    }
+  }
+}
