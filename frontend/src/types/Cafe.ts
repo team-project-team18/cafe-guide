@@ -3,6 +3,8 @@ export interface Cafe {
   street: string,
   images: string,
   description: string,
-  id: number,
+  id: string,
   address: string,
+  distanceFromCentre: number,
+  url: string,
 }

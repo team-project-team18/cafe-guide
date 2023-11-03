@@ -1,0 +1,109 @@
+@import "../../styleUtils/mixins.scss";
+
+.news {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__description {
+    font-size: 26px;
+    margin-bottom: 40px;
+
+    @include onTablet {
+      font-size: 34px;
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+
+    @include onDesktop {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+  }
+
+
+  &__item {
+    border: 2px solid #89939A;
+    padding: 20px;
+    border-radius: 10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scaleY(1.05);
+    }
+
+    @include onTablet {
+      height: 350px;
+      width: 450px;
+
+      padding: 35px;
+    }
+
+    &--first {
+      @include onDesktop {
+        height: 600px;
+        width: 1007px;
+      }
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include onTablet {
+      gap: 20px;
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    color: #313237;
+  }
+
+  &__wrapper {
+    overflow: hidden;
+    border-radius: 16px;
+
+    @include onTablet {
+      display: flex;
+      align-items: center;
+    }
+
+    @include onDesktop {
+      align-items: center;
+    }
+  }
+
+  &__image {
+    border-radius: 16px;
+    object-fit: cover;
+    transition: transform 0.8s;
+
+    @include onTablet {
+      width: 450px;
+    }
+
+    &--first {
+      @include onDesktop {
+        width: 1000px;
+        height: 500px;
+      }
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}

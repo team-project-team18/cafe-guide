@@ -1,0 +1,15 @@
+@import "../../styleUtils/mixins.scss";
+
+.homePage {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+
+  @include onTablet {
+    gap: 84px;
+  }
+
+  @include onDesktop {
+    gap: 100px;
+  }
+}
