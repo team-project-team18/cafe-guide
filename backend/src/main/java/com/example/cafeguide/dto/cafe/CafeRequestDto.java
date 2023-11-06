@@ -17,6 +17,8 @@ public class CafeRequestDto {
     @NotNull
     private String address;
     @NotNull
+    private String addressLink;
+    @NotNull
     @Min(0)
     private double distanceFromCentre;
     @NotNull

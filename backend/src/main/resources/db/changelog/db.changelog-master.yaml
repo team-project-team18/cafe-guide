@@ -11,3 +11,5 @@ databaseChangeLog:
       file : db/changelog/changes/05-create-news-table.yaml
   - include:
       file : db/changelog/changes/06-add-column-to-cafes-table.yaml
+  - include:
+      file : db/changelog/changes/07-add-column-address-link-to-cafes-table.yaml

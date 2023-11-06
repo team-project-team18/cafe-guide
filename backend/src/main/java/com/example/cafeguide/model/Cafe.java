@@ -33,6 +33,8 @@ public class Cafe {
     private String description;
     @Column(nullable = false)
     private String address;
+    @Column(name = "address_link", nullable = false)
+    private String addressLink;
     @Column(nullable = false, name = "distance_from_centre")
     private double distanceFromCentre;
     @Column(nullable = false)

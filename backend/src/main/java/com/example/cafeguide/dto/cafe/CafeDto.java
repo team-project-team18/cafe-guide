@@ -10,6 +10,7 @@ public class CafeDto {
     private String cafeId;
     private String description;
     private String address;
+    private String addressLink;
     private double distanceFromCentre;
     private String url;
     private Boolean hasCoworking;
