@@ -44,7 +44,7 @@ public class NewsController {
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     @Operation(summary = "Create news", description = "Create news")
-    public NewsDto createCafe(@RequestBody @Valid NewsDto requestDto) {
+    public NewsDto createNews(@RequestBody @Valid NewsDto requestDto) {
         return newsService.create(requestDto);
     }
 }

@@ -8,7 +8,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.HashSet;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,7 +48,9 @@ public class Cafe {
     @ElementCollection
     @CollectionTable(name = "cafes_images", joinColumns = @JoinColumn(name = "cafe_id"))
     @Column(name = "image")
-    private Set<String> images;
+    private Set<String> images = new HashSet<>();
+    @OneToMany(mappedBy = "cafe")
+    private Set<Comment> comments = new HashSet<>();
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
 }

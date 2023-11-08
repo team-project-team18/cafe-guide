@@ -1,5 +1,6 @@
 package com.example.cafeguide.dto.cafe;
 
+import com.example.cafeguide.dto.comment.CommentDto;
 import java.util.Set;
 import lombok.Data;
 
@@ -16,4 +17,5 @@ public class CafeDto {
     private Boolean hasCoworking;
     private String district;
     private Set<String> images;
+    private Set<CommentDto> comments;
 }
