@@ -1,9 +1,6 @@
 package com.example.cafeguide.controller;
 
-import com.example.cafeguide.dto.cafe.CafeDto;
 import com.example.cafeguide.dto.news.NewsDto;
-import com.example.cafeguide.dto.news.NewsDtoForPage;
-import com.example.cafeguide.service.cafe.CafeService;
 import com.example.cafeguide.service.news.NewsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,22 +20,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/news")
 @RestController
 public class NewsController {
-    private final CafeService cafeService;
     private final NewsService newsService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     @Operation(summary = "Get news", description = "Get news for the day")
-    public NewsDtoForPage getNews() {
+    public NewsDto getNews() {
         int newsSize = newsService.getAll().size();
-        int cafeSize = cafeService.getAll().size();
         Random random = new Random();
         NewsDto newsDto = newsService.getById(random.nextLong(1, newsSize + 1));
-        CafeDto cafeDto = cafeService.getById(random.nextLong(1, cafeSize + 1));
-        NewsDtoForPage newsDtoForPage = new NewsDtoForPage();
-        newsDtoForPage.setNews(newsDto);
-        newsDtoForPage.setCafe(cafeDto);
-        return newsDtoForPage;
+        return newsDto;
     }
 
     @ResponseStatus(HttpStatus.CREATED)

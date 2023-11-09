@@ -22,6 +22,10 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false)
+    private String title;
+    @Column(nullable = false)
+    private String image;
+    @Column(nullable = false)
     private String description;
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
