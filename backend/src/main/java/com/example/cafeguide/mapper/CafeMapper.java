@@ -6,9 +6,8 @@ import com.example.cafeguide.dto.cafe.CafeRequestDto;
 import com.example.cafeguide.model.Cafe;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapperConfig.class)
+@Mapper(config = MapperConfig.class, uses = CommentMapper.class)
 public interface CafeMapper {
-
     CafeDto toDto(Cafe cafe);
 
     Cafe toEntity(CafeRequestDto requestDto);

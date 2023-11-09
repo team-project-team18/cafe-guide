@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-column-address-link-to-cafes-table
+      author: irynamatveieva
+      changes:
+        - addColumn:
+            tableName: cafes
+            columns:
+              - column:
+                  name: address_link
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
