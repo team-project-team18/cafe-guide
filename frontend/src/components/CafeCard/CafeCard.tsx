@@ -15,32 +15,49 @@ export const CafeCard: React.FC<Props> = ({ cafeId }) => {
     return <Loader />;
   }
 
-  if (hasError) {
+  if (!hasError) {
     return <div>Error loading cafe</div>;
   }
 
-  const cafe = cafes.find(cafe => cafe.id === cafeId);
+  const cafe = cafes.find(cafe => cafe.cafeId === cafeId);
+
+  console.log(cafe)
 
   return (
     <div className="CafeCard">
       {isLoading && <Loader />}
       {cafe ? (
-        <Link 
-          to={`/cafe-guide/cafes/${cafe.id}`} 
-          className="CafeCard__link"
-          onClick={() => {
-            window.scrollTo({
-              top: 0,
-            })
-          }}
-        >
-          <img
-            src=""
-            alt={cafe.name}
-            className="CafeCard__img"
-          />
-          <div className="CafeCard__title">{cafe.name}</div>
-        </Link>
+        <div className="CafeCard__wrap">
+          <Link
+            to={`/cafe-guide/cafes/${cafe.cafeId}`}
+            className="CafeCard__link"
+            onClick={() => {
+              window.scrollTo({
+                top: 0,
+              })
+            }}
+          >
+            <img
+              src={cafe.images[0]}
+              alt={cafe.name}
+              className="CafeCard__img"
+            />
+          </Link>
+
+          <div className="CafeCard__allInfo">
+            <h2 className="CafeCard__title">{cafe.name}</h2>
+            <div className="CafeCard__content">
+              <div className="CafeCard__container">
+                <span className="CafeCard__text">Street:</span>
+                <span className="CafeCard__info">{cafe.address}</span>
+              </div>
+              <div className="CafeCard__container">
+                <span className="CafeCard__text">Distance from center:</span>
+                <span className="CafeCard__info">{cafe.distanceFromCentre} km</span>
+              </div>
+            </div>
+          </div>
+        </div>
       ) : (
         <div>Cafe not found</div>
       )}

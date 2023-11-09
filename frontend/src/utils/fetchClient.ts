@@ -1,4 +1,4 @@
-const BASE_URL = 'https://mate-academy.github.io/react_phone-catalog/_new';
+const BASE_URL = 'http://ec2-3-208-10-133.compute-1.amazonaws.com/cafe-guide';
 
 function wait(delay: number) {
   return new Promise(resolve => {
@@ -23,8 +23,9 @@ function request<T>(
   }
 
   return wait(300)
-    .then(() => fetch(BASE_URL + url, options))
-    .then(response => response.json());
+  .then(() => fetch(BASE_URL + url, { ...options, mode: 'no-cors' }))
+  .then(response => response.json());
+
 }
 
 export const client = {

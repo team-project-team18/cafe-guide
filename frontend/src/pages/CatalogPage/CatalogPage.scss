@@ -15,8 +15,7 @@
 
   &__container {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
 
     gap: 46px;
 
@@ -41,7 +40,9 @@
     justify-content: center;
     flex-wrap: wrap;
 
-    gap: 16px;
+    gap: 36px;
+
+    margin-bottom: 30px;
   }
 
   .filter-menu {
@@ -108,6 +109,12 @@
       border-radius: 5px;
       width: 100%;
       font-size: 16px;
+      margin-top: 40px;
+    }
+
+    &__coworking {
+      display: flex;
+      align-items: center;
     }
   }
 }

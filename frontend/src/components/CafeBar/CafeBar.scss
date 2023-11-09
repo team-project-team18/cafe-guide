@@ -1,3 +1,5 @@
+@import "../../styleUtils/mixins.scss";
+
 .cafeBar {
   display: flex;
   flex-direction: column;
@@ -5,5 +7,20 @@
   
   &__title {
     margin-bottom: 40px;
+  }
+
+  &__cards {
+    display: flex;
+    gap: 36px;
+    flex-direction: column;
+
+    @include onTablet {
+      flex-direction: row;
+      gap: 24px;
+    }
+
+    @include onDesktop {
+      gap: 80px;
+    }
   }
 }

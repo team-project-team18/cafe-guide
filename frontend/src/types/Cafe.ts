@@ -1,10 +1,13 @@
 export interface Cafe {
-  name: string,
-  street: string,
-  images: string,
-  description: string,
-  id: string,
-  address: string,
-  distanceFromCentre: number,
-  url: string,
+  name: string;
+  images: string[];
+  description: string;
+  addressLink: string;
+  id: number;
+  address: string;
+  distanceFromCentre: number;
+  url: string;
+  cafeId: string;
+  hasCoworking: boolean;
+  district: string;
 }

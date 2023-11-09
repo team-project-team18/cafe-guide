@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { CafeCard } from "../../components/CafeCard/CafeCard";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
@@ -10,8 +10,9 @@ import { DropDown } from "../../components/DropDown/DropDown";
 import { getSearchWith } from "../../helpers/getSearch";
 import { sortOptions } from "../../helpers/sortOptions";
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
-import { DiscreteSlider } from "../../components/Slider/Slider";
 import { loadCafes } from "../../app/thunk/cafeThunk";
+import { Cafe } from "../../types/Cafe";
+import { Checkboxes } from "../../components/CheckBox/CheckBox";
 
 export const CatalogPage: React.FC = () => {
   const { cafes } = useAppSelector(state => state.cafes);
@@ -20,9 +21,11 @@ export const CatalogPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
   const query = searchParams.get('query') || '';
-  const sortBy = searchParams.get('sortBy') || 'age';
- 
-  const [numCards, setNumCards] = useState(cafes.length);
+  const sortBy = searchParams.get('sortBy') || '';
+
+  const [filteredCafesByDistance, setFilteredCafesByDistance] = useState<Cafe[]>([]);
+  const [isCheckedInput, setIsCheckedInput] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,49 +33,34 @@ export const CatalogPage: React.FC = () => {
     };
 
     fetchData();
-
-    return () => {
-      localStorage.removeItem('numCards');
-    };
   }, [dispatch, cafes.length]);
 
-  useEffect(() => {
-    const storedValue = localStorage.getItem('numCards');
-    setNumCards(parseInt(storedValue || '', 10) || cafes.length);
-  }, [cafes.length]);
 
-
-  const filteredCafes = useMemo(() => {
-    return cafes.filter(cafe => {
+  const applyFiltersAndSort = () => {
+    const filteredCafes = cafes.filter(cafe => {
       const normalizedQuery = query.toLowerCase().trim();
       const normalizedName = cafe.name.toLowerCase().trim();
-
-      return normalizedName.includes(normalizedQuery);
-    })
-  }, [cafes, query]);
-
-  const slicedCafes = useMemo(() => {
-    return filteredCafes.slice(0, numCards);
-  }, [filteredCafes, numCards]);
-
-  const sortedCafes = useMemo(() => {
-    const cafeCopy = [...slicedCafes];
-
-    switch (sortBy) {
-      case 'name':
-        cafeCopy.sort((a, b) => b.name.localeCompare(a.name));
-        break;
-
-      case 'id':
-        cafeCopy.sort((a, b) => +(b.id) - +(a.id));
-        break;
-
-      default:
-        break;
-    }
-
-    return cafeCopy;
-  }, [sortBy, slicedCafes]);
+  
+      return (
+        normalizedName.includes(normalizedQuery) &&
+        (isCheckedInput ? cafe.hasCoworking === true : true)
+      );
+    });
+  
+    const sortedCafes = filteredCafes.sort((a, b) => {
+      switch (sortBy) {
+        case 'Distance':
+          return a.distanceFromCentre - b.distanceFromCentre;
+        case 'id':
+          return b.id - a.id;
+        default:
+          return 0;
+      }
+    });
+  
+    return sortedCafes;
+  };
+  
 
   const handleSortChange = (newVaue: string) => {
     setSearchParams(
@@ -85,31 +73,33 @@ export const CatalogPage: React.FC = () => {
     )
   }
 
-  const handleDistanceFromServerChange = (newValue: string) => {
-    setSearchParams(
-      getSearchWith(
-        searchParams,
-        {
-          numCards: newValue || null,
-        }
-      )
-    )
-  }
-
   const toggleFilterMenu = () => {
     setIsFilterMenuOpen(prev => !prev);
   };
 
-  const handleSliderChange = (value: number) => {
-    setNumCards(value);
-    localStorage.setItem('numCards', String(value));
+  const handleHasCoworkingChange = (checked: boolean) => {
+    setIsCheckedInput(checked);
+
+    const filteredCafesWithCoworking = applyFiltersAndSort().filter(cafe => {
+      return checked ? cafe.hasCoworking === true : true;
+    });
+
+    setSearchParams(
+      getSearchWith(searchParams, {
+        hasCoworking: checked ? 'true' : null,
+      })
+    );
+
+    setFilteredCafesByDistance(filteredCafesWithCoworking);
   };
+
 
   const resetFilters = () => {
     setSearchParams(new URLSearchParams());
-    setNumCards(cafes.length);
     localStorage.removeItem('numCards');
     setIsFilterMenuOpen(false);
+    setIsCheckedInput(false)
+    setFilteredCafesByDistance(cafes)
   }
 
   return (
@@ -130,8 +120,8 @@ export const CatalogPage: React.FC = () => {
           </div>
         </div>
         <div className="catalog__content">
-          {sortedCafes.map(cafe => (
-            <CafeCard cafeId={cafe.id} key={cafe.id} />
+          {applyFiltersAndSort().map(cafe => (
+            <CafeCard cafeId={cafe.cafeId} key={cafe.id} />
           ))}
         </div>
       </div>
@@ -149,12 +139,13 @@ export const CatalogPage: React.FC = () => {
         </div>
 
         <div className="filter-menu__filter">
-          <span>Distance from center: {sortedCafes.length} km</span>
-          <DiscreteSlider
-            onChangeParams={handleDistanceFromServerChange}
-            onChange={handleSliderChange}
-          />
         </div>
+
+        <div className="filter-menu__coworking">
+          <span>Coworking availability:</span>
+          <Checkboxes onInputChange={handleHasCoworkingChange} />
+        </div>
+
         <button
           className="filter-menu__reset"
           onClick={resetFilters}
@@ -164,4 +155,4 @@ export const CatalogPage: React.FC = () => {
       </div>
     </div>
   );
-};
+}

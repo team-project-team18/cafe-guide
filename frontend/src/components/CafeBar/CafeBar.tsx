@@ -14,7 +14,6 @@ export const CafeBar: React.FC<Props> = ({ title }) => {
 
   useEffect(() => {
     dispatch(loadCafes())
-    console.log('2')
   }, [dispatch]);
 
   return (
@@ -22,12 +21,12 @@ export const CafeBar: React.FC<Props> = ({ title }) => {
       <h1 className="cafeBar__title">{title}</h1>
       {isLoading ? (
         <p>Loading cafes...</p>
-      ) : hasError ? (
+      ) : !hasError ? (
         <p>Error loading cafes</p>
       ) : (
         <div className="cafeBar__cards">
           {cafes.slice(0, 3).map(cafe => (
-            <CafeCard key={cafe.id} cafeId={cafe.id} />
+            <CafeCard key={cafe.id} cafeId={cafe.cafeId} />
           ))}
         </div>
       )}

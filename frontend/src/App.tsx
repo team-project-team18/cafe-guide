@@ -7,6 +7,7 @@ import { Route, Routes } from 'react-router-dom';
 import { HomePage } from './pages/HomePage/HomePage';
 import { CafeCardPage } from './pages/CafeCardPage/CafeCardPage';
 import { CatalogPage } from './pages/CatalogPage/CatalogPage';
+import { NewsPage } from './pages/NewsPage/NewsPage';
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
             <Route path="/cafe-guide/">
               <Route index element={<HomePage />} />
               <Route path="catalog" element={(<CatalogPage />)} />
-              <Route path="cafes/:id" element={(<CafeCardPage />)} />
+              <Route path="cafes/:cafeId" element={(<CafeCardPage />)} />
+              <Route path="news" element={(<NewsPage />)} />
             </Route>
           </Routes>
           <BackToTopButton />
