@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: increase-varchar-column-in-news-table
+      author: irynamatveieva
+      changes:
+        - modifyDataType:
+            tableName: news
+            columnName: description
+            newDataType: varchar(1000)

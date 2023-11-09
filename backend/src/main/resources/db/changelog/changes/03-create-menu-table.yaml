@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-menu-table
+      author: irynamatveieva
+      changes:
+        - createTable:
+            tableName: menu
+            columns:
+              - column:
+                  name: cafe_id
+                  type: bigint
+                  constraints:
+                    primaryKey: true
+                    nullable: false

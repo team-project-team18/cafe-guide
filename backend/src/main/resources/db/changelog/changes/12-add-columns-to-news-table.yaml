@@ -1,0 +1,18 @@
+databaseChangeLog:
+  - changeSet:
+      id: add-columns-to-news-table
+      author: irynamatveieva
+      changes:
+        - addColumn:
+            tableName: news
+            columns:
+              - column:
+                  name: image
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: title
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
