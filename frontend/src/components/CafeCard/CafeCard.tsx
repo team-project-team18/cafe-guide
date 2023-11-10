@@ -21,8 +21,6 @@ export const CafeCard: React.FC<Props> = ({ cafeId }) => {
 
   const cafe = cafes.find(cafe => cafe.cafeId === cafeId);
 
-  console.log(cafe)
-
   return (
     <div className="CafeCard">
       {isLoading && <Loader />}

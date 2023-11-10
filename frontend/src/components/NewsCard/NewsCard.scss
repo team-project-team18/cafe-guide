@@ -1,0 +1,86 @@
+@import '../../styleUtils/mixins.scss';
+
+.newsCard {
+  display: flex;
+
+  &__wrapper {
+    overflow: hidden;
+    border-radius: 16px;
+
+    @include onTablet {
+      display: flex;
+      align-items: center;
+    }
+
+    @include onDesktop {
+      align-items: center;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    border: 2px solid #89939A;
+    padding: 20px;
+    border-radius: 10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    transition: all 0.3s;
+
+    &:hover {
+      transform: scaleY(1.05);
+    }
+
+    @include onTablet {
+      height: 350px;
+      width: 450px;
+      gap: 26px;
+
+      padding: 35px;
+    }
+  }
+
+  &__image {
+    border-radius: 16px;
+    object-fit: cover;
+    transition: transform 0.8s;
+    width: 280px;
+    height: 280px;
+
+    @include onTablet {
+      width: 450px;
+    }
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  &__link {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    @include onTablet {
+      gap: 20px;
+    }
+  }
+
+  &__title {
+    font-size: 20px;
+    color: #313237;
+    max-width: 250px;
+
+    @include onTablet {
+      max-width: 350px;
+    }
+
+    @include onDesktop {
+      max-width: 450px;
+    }
+  }
+}

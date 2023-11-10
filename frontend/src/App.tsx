@@ -8,6 +8,7 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { CafeCardPage } from './pages/CafeCardPage/CafeCardPage';
 import { CatalogPage } from './pages/CatalogPage/CatalogPage';
 import { NewsPage } from './pages/NewsPage/NewsPage';
+import { NewsCardPage } from './pages/NewsPageCard/NewsPageCard';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
               <Route path="catalog" element={(<CatalogPage />)} />
               <Route path="cafes/:cafeId" element={(<CafeCardPage />)} />
               <Route path="news" element={(<NewsPage />)} />
+              <Route path="news/:title" element={(<NewsCardPage />)} />
             </Route>
           </Routes>
           <BackToTopButton />

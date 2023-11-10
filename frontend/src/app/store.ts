@@ -2,17 +2,21 @@ import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit';
 import { cafeReducer } from './slices/cafeSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { newsReducer } from './slices/newsSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, cafeReducer);
+const persistedReducerCafe = persistReducer(persistConfig, cafeReducer);
+
+const persistedReducerNews = persistReducer(persistConfig, newsReducer);
 
 export const store = configureStore({
   reducer: {
-    cafes: persistedReducer,
+    cafes: persistedReducerCafe,
+    news: persistedReducerNews,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

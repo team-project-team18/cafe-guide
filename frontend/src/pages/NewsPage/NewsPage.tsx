@@ -2,6 +2,7 @@ import React from "react";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { Pages } from "../../types/Pages";
 import { NewsBar } from "../../components/NewsBar/NewsBar";
+import './NewsPage.scss';
 
 export const NewsPage: React.FC = () => {
   return (
