@@ -5,7 +5,7 @@ import com.example.cafeguide.dto.user.UserDto;
 import com.example.cafeguide.model.User;
 import org.mapstruct.Mapper;
 
-@Mapper(config = MapperConfig.class)
+@Mapper(config = MapperConfig.class, uses = CommentMapper.class)
 public interface UserMapper {
     UserDto toDto(User user);
 }

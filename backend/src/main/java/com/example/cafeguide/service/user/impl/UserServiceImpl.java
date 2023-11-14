@@ -2,6 +2,7 @@ package com.example.cafeguide.service.user.impl;
 
 import com.example.cafeguide.dto.user.UserDto;
 import com.example.cafeguide.dto.user.UserRegisterRequestDto;
+import com.example.cafeguide.exception.EntityNotFoundException;
 import com.example.cafeguide.exception.RegistrationException;
 import com.example.cafeguide.mapper.UserMapper;
 import com.example.cafeguide.model.Role;
@@ -10,6 +11,7 @@ import com.example.cafeguide.repository.role.RoleRepository;
 import com.example.cafeguide.repository.user.UserRepository;
 import com.example.cafeguide.service.user.UserService;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,5 +49,21 @@ public class UserServiceImpl implements UserService {
         user.setRoles(roles);
         User savedUser = userRepository.save(user);
         return userMapper.toDto(savedUser);
+    }
+
+    @Override
+    public UserDto getUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Could not found user by id:" + id)
+        );
+        return userMapper.toDto(user);
+    }
+
+    @Override
+    public List<UserDto> getAll() {
+        return userRepository.findAll()
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
     }
 }

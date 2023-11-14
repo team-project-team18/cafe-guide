@@ -41,6 +41,8 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/auth/**",
                                         "menu/**",
+                                        "users/**",
+                                        "/comments/**",
                                         "cafes/**",
                                         "news/**",
                                         "v3/api-docs/**",
