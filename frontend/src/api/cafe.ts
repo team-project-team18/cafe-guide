@@ -4,10 +4,3 @@ import { client } from "../utils/fetchClient"
 export const getAllCafes = () => {
   return client.get<Cafe[]>('/cafes');
 };
-
-// export const getCafeById = (id: string) => {
-//   const endpoint = `/products/${id}.json`;
-//   console.log('Fetching data from:', endpoint);
-
-//   return client.get<Cafe>(endpoint);
-// };

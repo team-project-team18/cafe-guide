@@ -1,45 +1,62 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { Cafe } from "../../types/Cafe"
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Cafe } from "../../types/Cafe";
 import { loadCafes } from "../thunk/cafeThunk";
 
 type CafeState = {
   cafes: Cafe[],
   isLoading: boolean,
   hasError: boolean,
-}
+};
 
 const initialState: CafeState = {
   cafes: [],
   isLoading: false,
   hasError: false,
-}
+};
 
 const cafeSlice = createSlice({
   name: 'cafes',
   initialState,
   reducers: {
     setCafe: (state, action: PayloadAction<Cafe[]>) => {
-      state.cafes = action.payload;
+      return {
+        ...state,
+        cafes: action.payload.map((cafe) => ({
+          ...cafe,
+          comments: [...cafe.comments],
+        })),
+      };
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(loadCafes.pending, (state) => {
-        state.isLoading = true;
-        state.hasError = false;
+        return {
+          ...state,
+          isLoading: true,
+          hasError: false,
+        };
       })
       .addCase(loadCafes.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.cafes = action.payload;
+        return {
+          ...state,
+          isLoading: false,
+          cafes: action.payload.map((cafe) => ({
+            ...cafe,
+            comments: [...cafe.comments],
+          })),
+        };
       })
       .addCase(loadCafes.rejected, (state) => {
-        state.isLoading = false;
-        state.hasError = true;
-      })
-  }
-  
+        return {
+          ...state,
+          isLoading: false,
+          hasError: true,
+        };
+      });
+  },
 });
 
 export const cafeReducer = cafeSlice.reducer;
+export const { setCafe } = cafeSlice.actions;
 
-export const cafeActions = cafeSlice.actions;

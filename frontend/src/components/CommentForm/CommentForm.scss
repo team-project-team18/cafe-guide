@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+
+  margin-top: 16px;
+
+  &__list {
+    display: flex;
+    gap: 16px;
+    flex-direction: row; 
+    flex-wrap: wrap;
+  }
+}

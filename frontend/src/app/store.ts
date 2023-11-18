@@ -3,6 +3,9 @@ import { cafeReducer } from './slices/cafeSlice';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { newsReducer } from './slices/newsSlice';
+import { userReducer } from './slices/userSlice';
+import { commentReducer } from './slices/commentsSlice';
+
 
 const persistConfig = {
   key: 'root',
@@ -13,10 +16,16 @@ const persistedReducerCafe = persistReducer(persistConfig, cafeReducer);
 
 const persistedReducerNews = persistReducer(persistConfig, newsReducer);
 
+const persistedReducerUser = persistReducer(persistConfig, userReducer);
+
+const persistedReducerComments = persistReducer(persistConfig, commentReducer);
+
 export const store = configureStore({
   reducer: {
     cafes: persistedReducerCafe,
     news: persistedReducerNews,
+    user: persistedReducerUser,
+    comments: persistedReducerComments,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

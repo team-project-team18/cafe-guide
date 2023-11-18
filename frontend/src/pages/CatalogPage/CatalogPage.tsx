@@ -51,8 +51,6 @@ export const CatalogPage: React.FC = () => {
       switch (sortBy) {
         case 'Distance':
           return a.distanceFromCentre - b.distanceFromCentre;
-        case 'id':
-          return b.id - a.id;
         default:
           return 0;
       }
@@ -121,7 +119,7 @@ export const CatalogPage: React.FC = () => {
         </div>
         <div className="catalog__content">
           {applyFiltersAndSort().map(cafe => (
-            <CafeCard cafeId={cafe.cafeId} key={cafe.id} />
+            <CafeCard id={cafe.id} key={cafe.id} />
           ))}
         </div>
       </div>

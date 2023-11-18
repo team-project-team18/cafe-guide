@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from "../../app/hooks";
 import { Loader } from "../../components/Loader/Loader";
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
@@ -7,15 +7,17 @@ import { Pages } from "../../types/Pages";
 import ArrowLeftIcon from '@mui/icons-material/ArrowLeft';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import './CafeCardPage.scss';
+import { CommentForm } from "../../components/CommentForm/CommentForm";
+import { CommentToAdd } from "../../components/CommentsToAdd/CommentsToAdd";
 
 export const CafeCardPage: React.FC = () => {
-  const { cafeId = '' } = useParams<{ cafeId: string }>();
+  const { id = '' } = useParams<{ id: string }>();
 
   const [startIndex, setStartIndex] = useState<number>(0);
 
   const { isLoading, hasError } = useAppSelector(state => state.cafes);
   const selectedCafe = useAppSelector(state => {
-    return state.cafes.cafes.find(cafe => cafe.cafeId === cafeId);
+    return state.cafes.cafes.find(cafe => cafe.id === +id);
   });
 
   const handleNexClick = () => {
@@ -42,7 +44,7 @@ export const CafeCardPage: React.FC = () => {
     <div className="cafeCardPage">
       <BreadCrumbs pages={Pages.Catalog} />
       <h2 className="cafeCardPage__title">Cafe Details</h2>
-      {!hasError && <h2 className="cafeCardPage__title">Error loading cafe details</h2>}
+      {hasError && <h2 className="cafeCardPage__title">Error loading cafe details</h2>}
       {isLoading && <Loader />}
       <div className="cafeCardPage__content">
         <div className="cafeCardPage__slider">
@@ -87,7 +89,13 @@ export const CafeCardPage: React.FC = () => {
           </div>
           <div className="cafeCardPage__district">
             <span className="cafeCardPage__text">Address:</span>
-            <span className="cafeCardPage__value">{selectedCafe?.address}</span>
+            {selectedCafe?.addressLink ? (
+              <Link to={selectedCafe.addressLink} className="cafeCardPage__link">
+                <span className="cafeCardPage__value">{selectedCafe.address}</span>
+              </Link>
+            ) : (
+              <span className="cafeCardPage__value">No address available</span>
+            )}
           </div>
           <div className="cafeCardPage__district">
             <span className="cafeCardPage__text">Distance from center:</span>
@@ -95,6 +103,10 @@ export const CafeCardPage: React.FC = () => {
           </div>
         </div>
       </div>
+        <div className="cafeCardPage__comments">
+          <CommentForm />
+          <CommentToAdd cafeId={+id} />
+        </div>
     </div>
   );
 };

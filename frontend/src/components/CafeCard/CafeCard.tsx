@@ -5,21 +5,23 @@ import { Loader } from "../Loader/Loader";
 import './CafeCard.scss';
 
 type Props = {
-  cafeId: string;
+  id: number;
 };
 
-export const CafeCard: React.FC<Props> = ({ cafeId }) => {
-  const { cafes, isLoading, hasError } = useAppSelector(state => state.cafes);;
+export const CafeCard: React.FC<Props> = ({ id }) => {
+  const { cafes, isLoading, hasError } = useAppSelector(state => state.cafes);
 
   if (isLoading) {
     return <Loader />;
   }
 
-  if (!hasError) {
+  if (hasError) {
     return <div>Error loading cafe</div>;
   }
 
-  const cafe = cafes.find(cafe => cafe.cafeId === cafeId);
+  const cafe = cafes.find(cafe => cafe.id === id);
+
+  console.log('Cafe', cafe)
 
   return (
     <div className="CafeCard">
@@ -27,7 +29,7 @@ export const CafeCard: React.FC<Props> = ({ cafeId }) => {
       {cafe ? (
         <div className="CafeCard__wrap">
           <Link
-            to={`/cafe-guide/cafes/${cafe.cafeId}`}
+            to={`/cafe-guide/cafes/${cafe.id}`}
             className="CafeCard__link"
             onClick={() => {
               window.scrollTo({

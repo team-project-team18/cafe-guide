@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { loadCafes } from "../../app/thunk/cafeThunk";
-import { CafeCard } from "../CafeCard/CafeCard";
 import './CafeBar.scss';
+import { CafeCard } from "../CafeCard/CafeCard";
 
 type Props = {
   title: string,
@@ -16,17 +16,19 @@ export const CafeBar: React.FC<Props> = ({ title }) => {
     dispatch(loadCafes())
   }, [dispatch]);
 
+  console.log(cafes)
+
   return (
     <div className="cafeBar">
       <h1 className="cafeBar__title">{title}</h1>
       {isLoading ? (
         <p>Loading cafes...</p>
-      ) : !hasError ? (
+      ) : hasError ? (
         <p>Error loading cafes</p>
       ) : (
         <div className="cafeBar__cards">
           {cafes.slice(0, 3).map(cafe => (
-            <CafeCard key={cafe.id} cafeId={cafe.cafeId} />
+            <CafeCard key={cafe.id} id={cafe.id} />
           ))}
         </div>
       )}

@@ -1,3 +1,5 @@
+import { Comments } from "./Comments";
+
 export interface Cafe {
   name: string;
   images: string[];
@@ -10,4 +12,5 @@ export interface Cafe {
   cafeId: string;
   hasCoworking: boolean;
   district: string;
+  comments: Comments[]
 }

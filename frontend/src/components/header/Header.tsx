@@ -4,6 +4,7 @@ import cn from 'classnames';
 import { Logo } from "../Logo/Logo";
 import './Header.scss';
 import { Search } from "../Search/Search";
+import PersonIcon from '@mui/icons-material/Person';
 
 export const Header: React.FC = () => {
   const [showMenu, setShowMenu] = useState(false);
@@ -146,14 +147,25 @@ export const Header: React.FC = () => {
           </li>
         </ul>
 
-        <button
-          className="header__search"
-          type="button"
-          onClick={toggleSearch}
-        >
-          <div className="header__search--icon" />
-        </button>
-        <div className="header__search--desktop"><Search /></div>
+        <div className="header__wrapper-account-search">
+          <NavLink
+            to="/cafe-guide/account"
+            className="header__wrapper-account"
+          >
+            <PersonIcon />
+          </NavLink>
+
+          <button
+            className="header__search"
+            type="button"
+            onClick={toggleSearch}
+          >
+            <div className="header__search--icon" />
+          </button>
+        </div>
+        <div className="header__search--desktop">
+          <Search />
+        </div>
       </nav>
 
       {showSearch && (
