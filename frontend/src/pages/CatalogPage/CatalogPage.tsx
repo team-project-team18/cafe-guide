@@ -25,6 +25,8 @@ export const CatalogPage: React.FC = () => {
 
   const [filteredCafesByDistance, setFilteredCafesByDistance] = useState<Cafe[]>([]);
   const [isCheckedInput, setIsCheckedInput] = useState(false);
+  const [hasComments, setHasComments] = useState(false);
+  const [moreThanHalfKM, setMoreThanHalfKM] = useState(false);
 
 
   useEffect(() => {
@@ -43,7 +45,9 @@ export const CatalogPage: React.FC = () => {
   
       return (
         normalizedName.includes(normalizedQuery) &&
-        (isCheckedInput ? cafe.hasCoworking === true : true)
+        (isCheckedInput ? cafe.hasCoworking === true : true) &&
+        (hasComments ? cafe.comments.length > 0 : true) &&
+        (moreThanHalfKM ? cafe.distanceFromCentre > 0.5 : true)
       );
     });
   
@@ -90,6 +94,38 @@ export const CatalogPage: React.FC = () => {
 
     setFilteredCafesByDistance(filteredCafesWithCoworking);
   };
+
+  const handleHasCommentsChange = (checked: boolean) => {
+    setHasComments(checked);
+
+    const filteredCafesWithComments = applyFiltersAndSort().filter(cafe => {
+      return checked ? cafe.comments.length > 0 : true;
+    });
+
+    setSearchParams(
+      getSearchWith(searchParams, {
+        hasComments: checked ? 'true' : null,
+      })
+    );
+
+    setFilteredCafesByDistance(filteredCafesWithComments);
+  };
+
+  const handleDistanceChange = (checked: boolean) => {
+    setMoreThanHalfKM(checked);
+
+    const filteredCafeWithDistance = applyFiltersAndSort().filter(cafe => {
+      return checked ? cafe.distanceFromCentre > 0.5 : true;
+    })
+
+    setSearchParams(
+      getSearchWith(searchParams, {
+        moreThanHalfKM: checked ? 'true' : null,
+      })
+    );
+
+    setFilteredCafesByDistance(filteredCafeWithDistance);
+  }
 
 
   const resetFilters = () => {
@@ -142,6 +178,10 @@ export const CatalogPage: React.FC = () => {
         <div className="filter-menu__coworking">
           <span>Coworking availability:</span>
           <Checkboxes onInputChange={handleHasCoworkingChange} />
+          <span>With comments:</span>
+          <Checkboxes onInputChange={handleHasCommentsChange} />
+          <span>More than 0,5 km from center</span>
+          <Checkboxes onInputChange={handleDistanceChange} />
         </div>
 
         <button
