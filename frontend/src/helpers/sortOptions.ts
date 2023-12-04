@@ -1,4 +1,4 @@
 export const sortOptions = [
   { value: 'Distance', label: 'Distance from center' },
-  { value: 'id', label: 'id' },
+  { value: 'By name', label: 'By name' },
 ];

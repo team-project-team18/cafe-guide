@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { CafeCard } from "../../components/CafeCard/CafeCard";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-
 import './CatalogPage.scss';
 import { BreadCrumbs } from "../../components/BreadCrumbs/BreadCrumbs";
 import { Pages } from "../../types/Pages";
@@ -55,6 +54,9 @@ export const CatalogPage: React.FC = () => {
       switch (sortBy) {
         case 'Distance':
           return a.distanceFromCentre - b.distanceFromCentre;
+
+        case 'Name':
+          return a.name.localeCompare(b.name)
         default:
           return 0;
       }

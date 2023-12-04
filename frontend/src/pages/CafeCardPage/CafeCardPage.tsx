@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from 'react-router-dom';
 import { useAppSelector } from "../../app/hooks";
 import { Loader } from "../../components/Loader/Loader";
@@ -20,11 +20,11 @@ export const CafeCardPage: React.FC = () => {
     return state.cafes.cafes.find(cafe => cafe.id === +id);
   });
 
-  const handleNexClick = () => {
+  const handleNexClick = useCallback(() => {
     if (selectedCafe && selectedCafe.images && selectedCafe.images.length) {
       setStartIndex((prevIndex) => (prevIndex + 1) % selectedCafe.images.length);
     }
-  };
+  }, [selectedCafe]);
 
   const handlePrevClick = () => {
     if (selectedCafe && selectedCafe.images) {
